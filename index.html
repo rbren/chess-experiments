@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Chess Game</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <div class="game-container">
+            <div class="board">
+                <div v-for="row in 8" :key="row" class="row">
+                    <div v-for="col in 8" 
+                         :key="col" 
+                         class="square" 
+                         :class="[
+                            getSquareColor(row, col),
+                            {
+                                'selected': isSelected(row-1, col-1),
+                                'valid-move': isValidMove(row-1, col-1)
+                            }
+                         ]"
+                         @click="handleSquareClick(row-1, col-1)">
+                        {{ getPiece(row-1, col-1) }}
+                    </div>
+                </div>
+            </div>
+            <div class="info">
+                <div class="turn">{{ currentTurn }}'s turn</div>
+                <button @click="resetGame" class="reset-btn">Reset Game</button>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
